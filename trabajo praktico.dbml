@@ -1,0 +1,49 @@
+Table Clientes {
+	id_cliente integer [ pk, increment, not null, unique ]
+	id_nombre varchar [ not null ]
+	id_apellido varchar [ not null ]
+	id_direccion varchar [ not null ]
+}
+
+Table Ventas {
+	id_venta integer [ pk, increment, not null, unique ]
+	id_cliente integer [ pk, not null ]
+	fecha_venta date [ not null ]
+	id_total numeric [ not null ]
+}
+
+Table Detalles de venta {
+	id_detalle integer [ pk, increment, not null, unique ]
+	id_venta integer [ pk, not null ]
+	id_producto integer [ not null ]
+	id_cantidad integer [ not null ]
+	id_precio integer [ not null ]
+}
+
+Table Producto del proveedor {
+	id_producto integer [ pk, increment, not null, unique ]
+	id_proveedor integer [ pk, not null ]
+}
+
+Table Proveedores {
+	id_proveedor integer [ pk, increment, not null, unique ]
+	id_nombre varchar [ not null ]
+	id_apellido varchar [ not null ]
+	id_telefono varchar [ not null ]
+}
+
+Ref fk_Clientes_id_cliente_Ventas {
+	Clientes.id_cliente < Ventas.id_cliente [ delete: restrict, update: cascade ]
+}
+
+Ref fk_Ventas_id_venta_Detalles de venta {
+	Ventas.id_venta < Detalles de venta.id_venta [ delete: restrict, update: cascade ]
+}
+
+Ref fk_Detalles de venta_id_producto_Producto del proveedor {
+	Detalles de venta.id_producto < Producto del proveedor.id_producto [ delete: restrict, update: cascade ]
+}
+
+Ref fk_Producto del proveedor_id_proveedor_Proveedores {
+	Producto del proveedor.id_proveedor < Proveedores.id_proveedor [ delete: restrict, update: cascade ]
+}
